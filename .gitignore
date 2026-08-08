@@ -1,0 +1,30 @@
+# Raw dataset - download instructions are in README.md instead of committing this
+/data/*
+!/data/.gitkeep
+
+# Local-only scratch space, never pushed
+/local/
+/deletable/
+
+# Not ready for this repo yet - drafts staged elsewhere / not linked from README
+/RESEARCH_POTENTIAL.md
+/BLOG_POST.md
+
+# Working draft synced into WRITEUP.md - the polished file is what gets pushed
+/writeup_core.md
+
+# Derived/regeneratable result cache, not a display artifact (unlike results/*.png,
+# which WRITEUP.md embeds directly and does need to be pushed)
+/results/*.pkl
+
+# Python environment / cache
+/venv/
+__pycache__/
+*.pyc
+
+# OS / editor cruft
+.DS_Store
+.vscode/
+*.swp
+*.swo
+.ipynb_checkpoints/
