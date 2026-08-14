@@ -8,7 +8,7 @@ state and NG-RC's delay embedding are what supply the temporal memory.
 import numpy as np
 from sklearn.preprocessing import StandardScaler
 
-from eda import informative_sensors
+from rcpm.eda import informative_sensors
 
 
 def build_sequences(train, test):

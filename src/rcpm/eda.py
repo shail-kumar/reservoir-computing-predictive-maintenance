@@ -1,11 +1,9 @@
-"""EDA: sensor trends, informative vs. near-constant channels.
-
-Run from inside src/:  python eda.py
-"""
+"""EDA: sensor trends, informative vs. near-constant channels."""
 
 import matplotlib.pyplot as plt
 
-from data import load_fd001, add_rul
+from rcpm.data import add_rul, load_fd001
+from rcpm.paths import result_path
 
 SENSOR_COLS = [f"sensor_{i}" for i in range(1, 22)]
 
@@ -47,5 +45,5 @@ if __name__ == "__main__":
     train = add_rul(train)
     kept = informative_sensors(train)
     plot_unit_trajectory(
-        train, unit=1, sensors=kept[:6], out_path="../results/unit1_sensors.png"
+        train, unit=1, sensors=kept[:6], out_path=result_path("unit1_sensors.png")
     )

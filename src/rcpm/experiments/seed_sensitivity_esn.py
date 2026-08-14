@@ -7,24 +7,24 @@ if ESN's performance actually varies meaningfully across seeds. Rather than
 assert that qualitatively, measure it: refit the tuned ESN config across
 many seeds and report the spread.
 
-Run from inside src/:  python seed_sensitivity_esn.py
+python -m rcpm.experiments.seed_sensitivity_esn
 """
 
 import time
 
 import numpy as np
 
-from compare_models import (
-    TUNED_ESN_KWARGS,
+from rcpm.config import (
     MULTI_CONDITION_SUBSETS,
     SENSOR_COLS,
     SUBSET,
+    TUNED_ESN_KWARGS,
 )
-from normalization import normalize_by_condition
-from data import load_cmapss, add_rul
-from esn import EchoStateNetwork
-from metrics import rmse, cmapss_score
-from sequences import build_sequences
+from rcpm.data import add_rul, load_cmapss
+from rcpm.esn import EchoStateNetwork
+from rcpm.metrics import cmapss_score, rmse
+from rcpm.normalization import normalize_by_condition
+from rcpm.sequences import build_sequences
 
 N_SEEDS = 100
 

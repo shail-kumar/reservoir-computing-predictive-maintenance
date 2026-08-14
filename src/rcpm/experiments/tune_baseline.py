@@ -13,7 +13,7 @@ libraries (LightGBM/CatBoost vs sklearn's GBM) and different feature
 pipelines mean literature hyperparameters don't reliably transfer, only the
 general ranges are useful.
 
-Run from inside src/:  python tune_baseline.py
+python -m rcpm.experiments.tune_baseline
 """
 
 import time
@@ -24,11 +24,11 @@ from sklearn.ensemble import GradientBoostingRegressor
 from sklearn.metrics import make_scorer
 from sklearn.model_selection import PredefinedSplit, RandomizedSearchCV
 
-from compare_models import SUBSET, MULTI_CONDITION_SUBSETS, SENSOR_COLS
-from normalization import normalize_by_condition
-from data import load_cmapss, add_rul, last_cycle_per_unit
-from features import build_features
-from metrics import rmse, cmapss_score
+from rcpm.config import MULTI_CONDITION_SUBSETS, SENSOR_COLS, SUBSET
+from rcpm.data import add_rul, last_cycle_per_unit, load_cmapss
+from rcpm.features import build_features
+from rcpm.metrics import cmapss_score, rmse
+from rcpm.normalization import normalize_by_condition
 
 SEED = 0
 CALIBRATION_FRACTION = 0.2
@@ -109,13 +109,13 @@ def main():
     y_test = test_rul["RUL"].clip(upper=125)
     y_pred = final_model.predict(X_test)
 
-    print(f"\nFinal tuned baseline (train on all data, real test set):")
+    print("\nFinal tuned baseline (train on all data, real test set):")
     print(f"  Training time: {train_time:.2f}s")
     print(f"  RMSE:          {rmse(y_test, y_pred):.2f}")
     print(f"  C-MAPSS score: {cmapss_score(y_test, y_pred):.1f}")
     print(
-        f"\nFor reference, current untuned baseline (n_estimators=100, "
-        f"learning_rate=0.1, max_depth=3): RMSE=59.56, score=1,100,330.0"
+        "\nFor reference, current untuned baseline (n_estimators=100, "
+        "learning_rate=0.1, max_depth=3): RMSE=59.56, score=1,100,330.0"
     )
 
 

@@ -6,7 +6,7 @@ search picks structural hyperparameters independent of which random
 reservoir draw got lucky; seed-sensitivity of the winning config is checked
 separately afterward (see seed_sensitivity_esn.py).
 
-Run from inside src/:  python tune_esn.py
+python -m rcpm.experiments.tune_esn
 """
 
 import itertools
@@ -14,19 +14,13 @@ import time
 
 import numpy as np
 
-from compare_models import (
-    split_calibration,
-    truncate_randomly,
-    SEED,
-    SUBSET,
-    MULTI_CONDITION_SUBSETS,
-    SENSOR_COLS,
-)
-from normalization import normalize_by_condition
-from data import load_cmapss, add_rul
-from esn import EchoStateNetwork
-from metrics import rmse, cmapss_score
-from sequences import build_sequences, scale_sequences
+from rcpm.config import MULTI_CONDITION_SUBSETS, SEED, SENSOR_COLS, SUBSET
+from rcpm.data import add_rul, load_cmapss
+from rcpm.esn import EchoStateNetwork
+from rcpm.metrics import cmapss_score, rmse
+from rcpm.normalization import normalize_by_condition
+from rcpm.sequences import build_sequences, scale_sequences
+from rcpm.splits import split_calibration, truncate_randomly
 
 # spectral_radius/sparsity/leak_rate/ridge_alpha are fixed at their own best
 # values from separate sweeps over each; this grid only re-sweeps n_reservoir.

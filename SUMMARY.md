@@ -33,7 +33,7 @@ below are apples-to-apples. (NG-RC's tuning history, including an
 early false lead, is documented in depth; the baseline and ESN are tuned the
 same way.)
 
-**Result.** No single winner — a genuine tradeoff. ESN is more accurate: RMSE
+**Result.** No single winner and there is a tradeoff. ESN is more accurate: RMSE
 16.38 vs. NG-RC's 21.08, and the C-MAPSS score (the metric that actually maps
 onto maintenance risk) 1,298.9 vs.  NG-RC's 2,315.3. NG-RC trains faster (~6x)
 and is fully deterministic, giving the same answer every run. ESN's own score

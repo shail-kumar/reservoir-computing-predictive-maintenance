@@ -6,25 +6,20 @@ holds up or was an artifact of that split. Scoped to degree=1 only (degree=2
 already lost robustly elsewhere, not re-verified here); ridge_alpha fixed at
 its established flat-plateau value, not re-swept.
 
-Run from inside src/:  python kfold_ngrc_check.py
+python -m rcpm.experiments.kfold_ngrc_check
 """
 
 import time
 
 import numpy as np
 
-from compare_models import (
-    SUBSET,
-    MULTI_CONDITION_SUBSETS,
-    SENSOR_COLS,
-    SEED,
-    truncate_randomly,
-)
-from normalization import normalize_by_condition
-from data import load_cmapss, add_rul
-from metrics import rmse, cmapss_score
-from ngrc import NGRC
-from sequences import build_sequences
+from rcpm.config import MULTI_CONDITION_SUBSETS, SEED, SENSOR_COLS, SUBSET
+from rcpm.data import add_rul, load_cmapss
+from rcpm.metrics import cmapss_score, rmse
+from rcpm.ngrc import NGRC
+from rcpm.normalization import normalize_by_condition
+from rcpm.sequences import build_sequences
+from rcpm.splits import truncate_randomly
 
 N_FOLDS = 5
 N_LAGS_CANDIDATES = list(range(2, 17))

@@ -1,13 +1,14 @@
-"""Maintenance-alert worked example for WRITEUP.md's Business implication
-section (Table 3). Not part of the main pipeline - a one-off illustration.
+"""Maintenance-alert worked example for WRITEUP.md Table 3.
 
-Run compare_models.py first to produce results_FD004_nlags-19.pkl.
-Run from inside src/:  python maintenance_alert_demo.py
+Run compare_models first to produce results_FD004_nlags-19.pkl.
+
+    python -m rcpm.experiments.maintenance_alert_demo
 """
 
 import pickle
 
-from data import load_cmapss
+from rcpm.data import load_cmapss
+from rcpm.paths import result_path
 
 # Illustrative only, matching Ozcan (2025) Table 17's convention - not derived from cost modeling.
 THRESHOLD = 15
@@ -21,7 +22,7 @@ def alert(value: float) -> str:
 
 
 def main():
-    with open("../results/results_FD004_nlags-19.pkl", "rb") as f:
+    with open(result_path("results_FD004_nlags-19.pkl"), "rb") as f:
         results = pickle.load(f)
     by_name = {r["name"]: r for r in results}
 
@@ -34,8 +35,8 @@ def main():
         "Unit-ID mapping assumes units are 1..N with no gaps - re-derive if this fails"
     )
 
-    print(f"| Test engine | Actual RUL | Baseline | ESN | NG-RC |")
-    print(f"|---|---|---|---|---|")
+    print("| Test engine | Actual RUL | Baseline | ESN | NG-RC |")
+    print("|---|---|---|---|---|")
     for i in EXAMPLE_INDICES:
         y_true = by_name["Baseline (GBM)"]["y_test"][i]
         true_alert = alert(y_true)
@@ -47,7 +48,11 @@ def main():
             decision_value = pred if margin is None else pred - margin
             model_alert = alert(decision_value)
             mark = "✓" if model_alert == true_alert else "✗"
-            cells.append(f"{model_alert} ({pred:.1f}) {mark}")
+            # To make the alert based on conformal threshold.
+            shown = (
+                f"{pred:.1f}" if margin is None else f"{pred:.1f} -> {decision_value:.1f}"
+            )
+            cells.append(f"{model_alert} ({shown}) {mark}")
         print("| " + " | ".join(cells) + " |")
 
 

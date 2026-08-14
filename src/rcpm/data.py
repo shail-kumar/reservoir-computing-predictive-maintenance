@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pandas as pd
 
-DATA_DIR = Path("../data")
+from rcpm.paths import DATA_DIR
 
 COLUMNS = ["unit", "cycle", "op_setting_1", "op_setting_2", "op_setting_3"] + [
     f"sensor_{i}" for i in range(1, 22)

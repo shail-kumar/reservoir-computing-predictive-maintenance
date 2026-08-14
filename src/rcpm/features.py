@@ -1,7 +1,7 @@
 """Feature engineering for the gradient-boosting baseline only - ESN and
 NG-RC consume raw sequences directly via sequences.py instead."""
 
-from eda import informative_sensors
+from rcpm.eda import informative_sensors
 
 
 def build_features(train, test, window: int = 5):

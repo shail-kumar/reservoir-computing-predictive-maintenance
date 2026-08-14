@@ -2,18 +2,18 @@
 (defaults) change anything on the identical feature set? See "Tuning the
 baseline" in WRITEUP.md for why this was tested and what it means.
 
-Run from inside src/:  python lightgbm_baseline.py
+python -m rcpm.experiments.lightgbm_baseline
 """
 
 import time
 
 from lightgbm import LGBMRegressor
 
-from compare_models import SUBSET, MULTI_CONDITION_SUBSETS, SENSOR_COLS
-from normalization import normalize_by_condition
-from data import load_cmapss, add_rul, last_cycle_per_unit
-from features import build_features
-from metrics import rmse, cmapss_score
+from rcpm.config import MULTI_CONDITION_SUBSETS, SENSOR_COLS, SUBSET
+from rcpm.data import add_rul, last_cycle_per_unit, load_cmapss
+from rcpm.features import build_features
+from rcpm.metrics import cmapss_score, rmse
+from rcpm.normalization import normalize_by_condition
 
 
 def main():

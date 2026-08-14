@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rcpm"
+dynamic = ["version"]
+description = "Reservoir computing for predictive maintenance on the NASA C-MAPSS benchmark"
+readme = "README.md"
+license = { file = "LICENSE" }
+authors = [{ name = "Shailendra K. Rathor" }]
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering",
+]
+dependencies = [
+    "numpy",
+    "pandas",
+    "scikit-learn",
+    "matplotlib",
+    "scipy",
+    "lightgbm",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "ruff"]
+
+[project.scripts]
+rcpm-compare = "rcpm.experiments.compare_models:main"
+rcpm-plot = "rcpm.experiments.plot_results:main"
+rcpm-tune-baseline = "rcpm.experiments.tune_baseline:main"
+rcpm-tune-esn = "rcpm.experiments.tune_esn:main"
+rcpm-tune-ngrc = "rcpm.experiments.tune_ngrc:main"
+
+[tool.setuptools.dynamic]
+version = { attr = "rcpm.__version__" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

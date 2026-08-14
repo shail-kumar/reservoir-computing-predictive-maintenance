@@ -5,7 +5,7 @@ test set is never touched here. Touching it during tuning would leak test
 information into model selection and make the final comparison numbers
 optimistic/invalid.
 
-Run from inside src/:  python tune_ngrc.py
+python -m rcpm.experiments.tune_ngrc
 """
 
 import itertools
@@ -14,19 +14,13 @@ import time
 
 import numpy as np
 
-from compare_models import (
-    split_calibration,
-    truncate_randomly,
-    SEED,
-    SUBSET,
-    MULTI_CONDITION_SUBSETS,
-    SENSOR_COLS,
-)
-from normalization import normalize_by_condition
-from data import load_cmapss, add_rul
-from metrics import rmse, cmapss_score
-from ngrc import NGRC
-from sequences import build_sequences, scale_sequences
+from rcpm.config import MULTI_CONDITION_SUBSETS, SEED, SENSOR_COLS, SUBSET
+from rcpm.data import add_rul, load_cmapss
+from rcpm.metrics import cmapss_score, rmse
+from rcpm.ngrc import NGRC
+from rcpm.normalization import normalize_by_condition
+from rcpm.sequences import build_sequences, scale_sequences
+from rcpm.splits import split_calibration, truncate_randomly
 
 # Predates the eventual final n_lags choice (a later, separate follow-up).
 N_LAGS_GRID = [8, 10, 12, 16]

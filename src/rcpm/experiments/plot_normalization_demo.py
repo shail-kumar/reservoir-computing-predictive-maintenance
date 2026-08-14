@@ -1,25 +1,16 @@
-"""Per-condition normalization demo chart referenced in WRITEUP.md's Dataset
-section, showing the effect on real FD004 data. Not part of the main
-pipeline - a one-off visualization aid.
+"""Per-condition normalization figure for WRITEUP.md's Dataset section,
+showing the effect on real FD004 data.
 
-Run from inside src/:  python plot_normalization_demo.py
+    python -m rcpm.experiments.plot_normalization_demo
 """
 
 import matplotlib.pyplot as plt
 import numpy as np
 
-from data import add_rul, load_cmapss
-from normalization import fit_operating_conditions, assign_operating_condition
-
-plt.rcParams["text.usetex"] = True
-# Base matplotlib font size (10pt) reads smaller than surrounding body text
-# once embedded in the writeup; bump labels/legend/ticks to stay legible.
-plt.rcParams["font.size"] = 13
-plt.rcParams["axes.labelsize"] = 13
-plt.rcParams["legend.fontsize"] = 13
-plt.rcParams["xtick.labelsize"] = 13
-plt.rcParams["ytick.labelsize"] = 13
-plt.rcParams["axes.titlesize"] = 14
+from rcpm.data import add_rul, load_cmapss
+from rcpm.normalization import assign_operating_condition, fit_operating_conditions
+from rcpm.paths import result_path
+from rcpm.plotting import use_writeup_style
 
 CONDITION_COLORS = [
     "tab:blue",
@@ -87,11 +78,15 @@ def _plot_before_after(
 
 
 def plot_real_data_demo(
-    out_path="../results/conditions_normalization_real_data.png",
+    out_path=None,
     subset="FD004",
     unit=1,
     sensor="sensor_2",
 ):
+    use_writeup_style()
+    if out_path is None:
+        out_path = result_path("conditions_normalization_real_data.png")
+
     train, _, _ = load_cmapss(subset)
     train = add_rul(train)
     kmeans = fit_operating_conditions(train)
@@ -117,5 +112,9 @@ def plot_real_data_demo(
     )
 
 
-if __name__ == "__main__":
+def main():
     plot_real_data_demo()
+
+
+if __name__ == "__main__":
+    main()

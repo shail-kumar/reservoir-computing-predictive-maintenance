@@ -1,17 +1,15 @@
 """Gradient boosting regression on engineered features - the conventional
-feature-engineering + tree-ensemble reference point against which ESN and
-NG-RC are compared in compare_models.py, on both accuracy and training time.
-
-Run from inside src/:  python baseline.py
+reference point ESN and NG-RC are compared against, on both accuracy and
+training time.
 """
 
 import time
 
 from sklearn.ensemble import GradientBoostingRegressor
 
-from data import load_fd001, add_rul, last_cycle_per_unit
-from features import build_features
-from metrics import rmse, cmapss_score
+from rcpm.data import add_rul, last_cycle_per_unit, load_fd001
+from rcpm.features import build_features
+from rcpm.metrics import cmapss_score, rmse
 
 
 def run_baseline(train, test, test_rul, model_kwargs=None):

@@ -4,19 +4,19 @@ engines shorter than the largest n_lags tested can't produce a prediction at
 all, so the test subset is fixed up front to units long enough for the
 grid's max n_lags, keeping every row's population identical.
 
-Run from inside src/:  python n_lags_test_sweep.py
+python -m rcpm.experiments.n_lags_test_sweep
 """
 
 import time
 
 import numpy as np
 
-from compare_models import MULTI_CONDITION_SUBSETS, SENSOR_COLS, SUBSET
-from normalization import normalize_by_condition
-from data import load_cmapss, add_rul
-from metrics import rmse, cmapss_score
-from ngrc import NGRC
-from sequences import build_sequences
+from rcpm.config import MULTI_CONDITION_SUBSETS, SENSOR_COLS, SUBSET
+from rcpm.data import add_rul, load_cmapss
+from rcpm.metrics import cmapss_score, rmse
+from rcpm.ngrc import NGRC
+from rcpm.normalization import normalize_by_condition
+from rcpm.sequences import build_sequences
 
 N_LAGS_GRID = list(range(2, 41))
 DEGREE = 1
