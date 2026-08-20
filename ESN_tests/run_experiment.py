@@ -6,16 +6,20 @@ Run from inside ESN_tests/:  python run_experiment.py
 import time
 
 import numpy as np
-
 from data_utils import (
-    load_fd004, add_rul, informative_sensors, normalize_by_condition,
-    build_sequences, split_by_unit, truncate_to_length,
+    add_rul,
+    build_sequences,
+    informative_sensors,
+    load_fd004,
+    normalize_by_condition,
+    split_by_unit,
+    truncate_to_length,
 )
 from esn_v2 import EchoStateNetworkV2
-from metrics import rmse, cmapss_score
+from metrics import cmapss_score, rmse
 
-TUNED_KWARGS = dict(n_reservoir=800, spectral_radius=1.05, sparsity=0.9,
-                     leak_rate=0.05, ridge_alpha=1.0)
+TUNED_KWARGS = {"n_reservoir": 800, "spectral_radius": 1.05, "sparsity": 0.9,
+                     "leak_rate": 0.05, "ridge_alpha": 1.0}
 SHORT_LENGTHS = [8, 15, 20, 30]
 
 
@@ -40,11 +44,11 @@ def main():
     n_inputs = len(sensors)
 
     variants = {
-        "A: zero-start, washout=5 (current production)": dict(warm_start=False, washout=5),
-        "B: zero-start, washout=90":                       dict(warm_start=False, washout=90),
-        "C: warm-start(100), washout=5":                    dict(warm_start=True, washout=5),
-        "D: zero-start, washout=2":                         dict(warm_start=False, washout=2),
-        "E: zero-start, washout=0":                         dict(warm_start=False, washout=0),
+        "A: zero-start, washout=5 (current production)": {"warm_start": False, "washout": 5},
+        "B: zero-start, washout=90":                       {"warm_start": False, "washout": 90},
+        "C: warm-start(100), washout=5":                    {"warm_start": True, "washout": 5},
+        "D: zero-start, washout=2":                         {"warm_start": False, "washout": 2},
+        "E: zero-start, washout=0":                         {"warm_start": False, "washout": 0},
     }
 
     results = {}

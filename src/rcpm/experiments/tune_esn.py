@@ -71,13 +71,13 @@ def main(subset=SUBSET):
     results = []
     search_start = time.perf_counter()
     for n_reservoir, spectral_radius, sparsity, leak_rate, ridge_alpha in grid:
-        kwargs = dict(
-            n_reservoir=n_reservoir,
-            spectral_radius=spectral_radius,
-            sparsity=sparsity,
-            leak_rate=leak_rate,
-            ridge_alpha=ridge_alpha,
-        )
+        kwargs = {
+            "n_reservoir": n_reservoir,
+            "spectral_radius": spectral_radius,
+            "sparsity": sparsity,
+            "leak_rate": leak_rate,
+            "ridge_alpha": ridge_alpha,
+        }
         val_rmse, val_score = evaluate_config(
             kwargs, n_inputs, fit_seq, fit_tgt, val_seq, val_tgt
         )

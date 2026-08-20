@@ -50,7 +50,7 @@ def main():
     if SUBSET in MULTI_CONDITION_SUBSETS:
         train, test = normalize_by_condition(train, test, SENSOR_COLS)
 
-    sequences, targets, _, sensors = build_sequences(train, test)
+    sequences, targets, _, _sensors = build_sequences(train, test)
     folds = make_folds(len(sequences))
 
     print(

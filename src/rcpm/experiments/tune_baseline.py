@@ -61,7 +61,7 @@ def main():
     if SUBSET in MULTI_CONDITION_SUBSETS:
         train, test = normalize_by_condition(train, test, SENSOR_COLS)
 
-    fit_units, cal_units = split_units(train)
+    _fit_units, cal_units = split_units(train)
 
     train_feat, test_feat, feature_cols = build_features(train, test)
 

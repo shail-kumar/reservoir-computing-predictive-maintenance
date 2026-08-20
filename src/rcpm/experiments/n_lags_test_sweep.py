@@ -31,7 +31,7 @@ def main(subset=SUBSET):
     if subset in MULTI_CONDITION_SUBSETS:
         train, test = normalize_by_condition(train, test, SENSOR_COLS)
 
-    train_sequences, train_targets, test_sequences, sensors = build_sequences(
+    train_sequences, train_targets, test_sequences, _sensors = build_sequences(
         train, test
     )
 
