@@ -1,5 +1,7 @@
 # Predictive Maintenance via Reservoir Computing
 
+[![CI](https://github.com/shail-kumar/reservoir-computing-predictive-maintenance/actions/workflows/ci.yml/badge.svg)](https://github.com/shail-kumar/reservoir-computing-predictive-maintenance/actions/workflows/ci.yml)
+
 Compares a gradient-boosting baseline, a classical Echo State Network, and NG-RC
 (next-generation reservoir computing) on NASA's C-MAPSS FD004 turbofan degradation benchmark —
 the hardest of the four standard subsets (6 operating conditions, 2 simultaneous fault modes).
