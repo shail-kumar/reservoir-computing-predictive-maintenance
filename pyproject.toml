@@ -24,7 +24,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["pytest", "ruff==0.16.3"]
+dev = ["pytest", "ruff==0.16.9"]
 
 [project.scripts]
 rcpm-compare = "rcpm.experiments.compare_models:main"
